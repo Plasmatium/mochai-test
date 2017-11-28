@@ -6,13 +6,13 @@ export const testFunc = (n1: number, n2: number) => {
 export const mockFetch = (ctrl: number = 0.5) => {
   let rand = Math.random()
   let pass = rand >= ctrl
-  let timeout = rand*1000 + 2000 // 0.5 ~ 1.5 sec
+  let timeout = rand*1000 + 500 // 0.5 ~ 1.5 sec
   return new Promise<string>((res, rej) => {
     setTimeout(() => {
       if (pass) {
-        res(`delayed (${timeout})ms`)
+        res(`delayed -> (${timeout}ms)`)
       } else {
-        rej(`not passed: (${rand} < ${ctrl})`)
+        rej(Error(`not passed: (${rand} < ${ctrl}), delayed (${timeout}ms)`))
       }
     }, timeout)
   })
@@ -27,7 +27,7 @@ export const testAsync = async () => {
   //   console.log('catched err:', err)
   //   rslt = 'this is an error: ' + err
   // }
-  rslt = await mockFetch(0.9).catch(rejReason => {
+  rslt = await mockFetch().catch(rejReason => {
     return rejReason
   })
   return rslt
@@ -38,6 +38,6 @@ export const testAsync2 = async () => {
   return a
 }
 
-testAsync2().then(value => {
-  console.log(`${value}\n`)
-}).catch(rej => console.log('last:', rej))
+// testAsync2().then(value => {
+//   console.log(`${value}\n`)
+// }).catch(rej => console.log('last:', rej))
