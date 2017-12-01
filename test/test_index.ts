@@ -29,3 +29,5 @@ describe('mockFetch - async mode', () => {
     })
   })  
 })
+
+// this is for git: merge and conflict test
