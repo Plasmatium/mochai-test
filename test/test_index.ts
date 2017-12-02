@@ -1,15 +1,34 @@
-import * as chai from 'chai' // merge test #1
-import {testFunc, mockFetch} from '../src/index'
-
+import * as chai from 'chai' // test no conflict #1
 const should = chai.should()
+
+import {testFunc, mockFetch} from '../src/index'
 
 describe('testFunc', () => {
   it('should be a function', () => {
     testFunc.should.be.a('function')
     let x = 1
-    x.should.be.a('number')
+    x.should.be.a('number') // test no conflict #2
     x.should.be.an('number')
   })
 })
 
-// that's for merge or conflict test
+describe('mockFetch - done() mode', () => {
+  describe('#this has 50% of chance failed', () => {
+    it('should passed', (done) => {
+      mockFetch(0.5)
+      .then(val => done()) // don't use .then(done()), done() will execute immediatly
+      .catch(done)
+    })
+  })  
+})
+
+describe('mockFetch - async mode', () => {
+  describe('#this has 50% of chance failed', () => {
+    it('should passed', async () => {
+      await mockFetch(0.5)
+    })
+  })  
+})
+
+// this is for git: merge and conflict test
+// is this conflict?
