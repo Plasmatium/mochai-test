@@ -1,4 +1,4 @@
-import * as chai from 'chai'
+import * as chai from 'chai' // merge test #1
 import {testFunc, mockFetch} from '../src/index'
 
 const should = chai.should()
@@ -11,3 +11,5 @@ describe('testFunc', () => {
     x.should.be.an('number')
   })
 })
+
+// that's for merge or conflict test
